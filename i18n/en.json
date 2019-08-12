@@ -1,0 +1,4 @@
+{
+    "youtrackParams": "start|stop|status",
+    "youtrackDescription": "Commands to control the bot @bot_youtrack"
+}

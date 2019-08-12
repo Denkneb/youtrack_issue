@@ -2,9 +2,9 @@ import { IHttp, IModify, IPersistence, IRead } from '@rocket.chat/apps-engine/de
 import { RocketChatAssociationModel, RocketChatAssociationRecord } from '@rocket.chat/apps-engine/definition/metadata';
 import { ISlashCommand, SlashCommandContext } from '@rocket.chat/apps-engine/definition/slashcommands';
 
-import { YoutrackPmAppStorage } from './YoutrackPmAppStorage';
+import { YoutrackIssueAppStorage } from './YoutrackIssueAppStorage';
 
-export class YoutrackPmAppCommand implements ISlashCommand {
+export class YoutrackIssueAppCommand implements ISlashCommand {
     public command = 'youtrack-issue';
     public i18nParamsExample = 'youtrackParams';
     public i18nDescription = 'youtrackDescription';
@@ -32,7 +32,7 @@ export class YoutrackPmAppCommand implements ISlashCommand {
     // tslint:disable-next-line:max-line-length
     private async handleStatusArgOnly(context: SlashCommandContext, read: IRead, modify: IModify, http: IHttp, persis: IPersistence): Promise<void> {
         const assoc = new RocketChatAssociationRecord(RocketChatAssociationModel.USER, context.getSender().id);
-        const data: YoutrackPmAppStorage = {
+        const data: YoutrackIssueAppStorage = {
             out: true,
             // tslint:disable-next-line:max-line-length
             message: '',
@@ -87,7 +87,7 @@ export class YoutrackPmAppCommand implements ISlashCommand {
         const args = Array.from(context.getArguments());
         args.splice(0, 1); // Removing the action
         const assoc = new RocketChatAssociationRecord(RocketChatAssociationModel.USER, context.getSender().id);
-        const data: YoutrackPmAppStorage = {
+        const data: YoutrackIssueAppStorage = {
             out: true,
             message: args.join(' '),
         };

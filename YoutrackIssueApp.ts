@@ -10,10 +10,10 @@ import { IMessage, IPostMessageSent } from '@rocket.chat/apps-engine/definition/
 import { RocketChatAssociationModel, RocketChatAssociationRecord } from '@rocket.chat/apps-engine/definition/metadata';
 import { RoomType } from '@rocket.chat/apps-engine/definition/rooms';
 
-import { YoutrackPmAppStorage } from './YoutrackPmAppStorage';
-import { YoutrackPmAppCommand } from './YoutrackPmAppCommand';
+import { YoutrackIssueAppStorage } from './YoutrackIssueAppStorage';
+import { YoutrackIssueAppCommand } from './YoutrackIssueAppCommand';
 
-export class YoutrackPmApp extends App implements IPostMessageSent {
+export class YoutrackIssueApp extends App implements IPostMessageSent {
     public async checkPostMessageSent(message: IMessage, read: IRead, http: IHttp): Promise<boolean> {
         // We don't auto-respond to rooms beside direct messages
         // maybe in the future if the user is tagged by someone
@@ -40,7 +40,7 @@ export class YoutrackPmApp extends App implements IPostMessageSent {
             return;
         }
 
-        const data = awayDatas[0] as YoutrackPmAppStorage;
+        const data = awayDatas[0] as YoutrackIssueAppStorage;
         const msg = read.getNotifier().getMessageBuilder().setText(otherUser.username +
             ' is currently *youtrack*, however they left the following message:\n\n>' +
             data.message)
@@ -54,6 +54,6 @@ export class YoutrackPmApp extends App implements IPostMessageSent {
     }
 
     protected async extendConfiguration(configuration: IConfigurationExtend, environmentRead: IEnvironmentRead): Promise<void> {
-        await configuration.slashCommands.provideSlashCommand(new YoutrackPmAppCommand());
+        await configuration.slashCommands.provideSlashCommand(new YoutrackIssueAppCommand());
     }
 }
